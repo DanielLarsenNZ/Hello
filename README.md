@@ -1,5 +1,4 @@
 # Hello
 
-All the Hello examples.
+Hello-World solutions and examples for fine-grained SOA, micro-lithic and micro-services architectures.
 
-* [hello-nginx](./nginx)
