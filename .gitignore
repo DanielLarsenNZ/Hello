@@ -2,3 +2,6 @@
 obj
 bin
 *.user
+_work
+PublishProfiles
+**/appsettings.*.json
