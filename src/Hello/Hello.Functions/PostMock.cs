@@ -1,3 +1,6 @@
+using Hello.Functions.Helpers;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -10,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Hello.Functions
 {
-    public static class PostMock
+    public class PostMock
     {
         /// <summary>
         /// Mock POST endpoint that echoes back the body as a response and will throw random 429 responses
@@ -19,13 +22,16 @@ namespace Hello.Functions
         /// the more times the endpoint is called ;)
         /// </summary>
         [FunctionName("mock")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             string errorMixQuery = req.Query["errormix"];
+            string mockServiceName = (string)req.Query["name"] ?? "Hello.Functions.PostMock";
+
+            InsightsHelper.TrackEvent(mockServiceName, req);
 
             // if an errorMix query param is provided as an integer value between 1 and 100 (inclusive)
             if (int.TryParse(errorMixQuery, out int errorMix) && errorMix > 0 && errorMix <= 100)

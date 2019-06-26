@@ -1,3 +1,4 @@
+using Hello.Functions.Helpers;
 using Hello.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs;
@@ -16,6 +17,7 @@ namespace Hello.Functions
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
+            InsightsHelper.TrackEvent("products/get-modified", req);
 
             bool.TryParse(req.Query["modified"], out bool modified);
 
