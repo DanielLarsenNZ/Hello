@@ -5,7 +5,7 @@ namespace HelloDW.Functions.Helpers
 {
     internal class FunctionsHelper
     {
-        public static IConfiguration GetConfig(ExecutionContext context)
+        internal static IConfiguration GetConfig(ExecutionContext context)
         {
             var config = new ConfigurationBuilder()
 #if DEBUG
