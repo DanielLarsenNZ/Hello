@@ -18,9 +18,16 @@
 # Show the K8s dashboard
 az aks browse --resource-group $clusterRG --name $clusterName
 
+# deploy a basic Tiller into an AKS cluster
+helm init --service-account tiller
+
 # https://docs.microsoft.com/en-us/azure/aks/kubernetes-helm
 # Create the service account and role binding with the kubectl apply command
 kubectl apply -f helm-rbac.yaml
 
-# deploy a basic Tiller into an AKS cluster
-helm init --service-account tiller
+########################
+# Dev Spaces           #
+# ######################
+
+# Register the dev spaces resource provider
+& az provider register --namespace Microsoft.DevSpaces
